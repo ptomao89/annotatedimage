@@ -2,7 +2,6 @@
 This is a good layout for a mobile-first CSS template.
 Following this flow will minimize the number of styles you need to write and will ensure you are thinking, designing and developing mobile-first.
 Most of your styles get written like standard CSS, but for your mobile presentation. Generally speaking, a good mobile presention will stretch out nicely for larger screens.
-
 Sometimes, when we stretch out to larger screens, we need to make minor tweaks for the larger devices -- you can make these tweaks in the tablet media query, or if the issue exists on desktop only, the desktop media query.
 You will find this is far easier than the opposite task of using CSS to cram your desktop experience into a mobile device.
 */
@@ -59,7 +58,6 @@ header p {
 }
 
 
-
 /** Caption styles */
 
 .caption,
@@ -96,16 +94,189 @@ figcaption {
     padding: 5px 10px;
 }
 
+
+/**
+* Make the annotated image container relative so it can control absolute objects
+*/
+
+.annotate {
+    position: relative;
+}
+
+
+/**
+* Each of the dots is a rounded square (or circle) made up of congruent width and height, a 50% border radius
+* Each dot is positioned absolutely so we can place it wherever over the image
+* Each dot has 2px stroke white border so it pops against the image
+* Each dot has a hidden overflow so it's inside content is confined to the dot's borders
+* Each dot has white text by default
+*/
+
+.annotate .dot {
+    width: 25px;
+    height: 25px;
+    border: 2px solid #FFF;
+    border-radius: 50%;
+    position: absolute;
+    overflow: hidden;
+    color: #FFF;
+}
+
+
+/**
+* The inner div of the dot is also positioned absolutely so that we can enforce vertical center
+* It also has 25px of padding, is invisible by default and we specify 100% width because absolute objects need the width specified
+* otherwise they are, by default, only as wide as their content requires
+*/
+
+.annotate .dot .inner {
+    position: absolute;
+    opacity: 0;
+    color: #FFF;
+    padding: 25px;
+    width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+
+/**
+* The close button is absolutely positioned to the top right, is invisible by default and we
+* eliminate the link underline. The default link blue becomes white
+*/
+
+.annotate .dot .close {
+    color: #FFF;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 2em;
+    text-decoration: none;
+    opacity: 0;
+}
+
+
+/**
+* We establish classes for the background colors
+*/
+
+.annotate .dot.green {
+    background-color: rgba(0, 110, 65, 0.65);
+}
+
+.annotate .dot.purple {
+    background-color: rgba(74, 2, 242, 0.65);
+}
+
+.annotate .dot.red {
+    background-color: rgba(230, 11, 65, 0.65);
+}
+
+.annotate .dot.blue {
+    background-color: rgba(11, 18, 230, 0.65);
+}
+
+.annotate .dot.pink {
+    background-color: rgba(240, 12, 182, 0.65);
+}
+
+
+/**
+* Use IDs to position the dots. The IDs include a :not pseudo-selector so that the dot's active class can override these behaviors
+*/
+
+#buffalo:not(.active) {
+    top: 20%;
+    right: 21%;
+}
+
+#minneapolis:not(.active) {
+    top: 20%;
+    left: 53%;
+}
+
+#albany:not(.active) {
+    top: 20%;
+    right: 13%;
+}
+
+#salisbury:not(.active) {
+    top: 32%;
+    right: 15%;
+}
+
+
+
+
+
+/**
+* When the dot has an active class, make it a rectangle that is congruently sized to the image. 
+* Reverse the border radius and positioning logic
+* Set the z-index to 2 so that the rectangle is on top of the picture and all of the other dots
+*/
+
+.annotate .dot.active {
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    border-radius: 0;
+    border: 0;
+    z-index: 2;
+}
+
+
+/**
+* When a dot is active, it's .inner and .close elements
+* should be made opaque with a transition so that the visually fade-in
+*/
+
+.annotate .dot.active .inner,
+.annotate .dot.active .close {
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+}
+
+
+/**
+* Set the collage up as a flexbox
+*/
+
 .collage {
     display: flex;
+    justify-content: space-between;
     flex-wrap: wrap;
 }
 
-.collage > .img {
-flex-basis: calc(50% ) ;
 
+/**
+* Each image div is half the width of the box with 2.5px of padding.
+* 2.5px is used because when the images are up against each other their
+* combined padding creates the desired 5px of negative space
+*/
+
+.collage .img {
+    flex-basis: 50%;
+    padding: 2.5px;
 }
 
+
+/**
+* Eliminate the right padding from the even children so the image goes full bleed
+*/
+
+.collage .img:nth-child(even) {
+    padding-right: 0;
+}
+
+
+/**
+* Eliminate the left padding from the odd children so the image goes full bleed
+*/
+
+.collage .img:nth-child(odd) {
+    padding-left: 0;
+}
 
 
 /*********************************************************************
@@ -115,6 +286,28 @@ flex-basis: calc(50% ) ;
 @media(min-width: 681px) {
     /* Any adjustments for tablets and larger go here.
     Note these styles will be applied to anything 681px or larger -- so tablet AND desktop */
+    /**
+    * Increase the padding on desktop because it's nicer
+    */
+    .annotate .dot.active .inner {
+        padding: 75px;
+    }
+    /**
+    * Some dots may need to be slightly repositioned on tablet compared to mobile.
+    * We can do that here
+    */
+    #arm:not(.active) {
+        top: 53%;
+        right: 26%;
+    }
+    #moxie:not(.active) {
+        bottom: 43%;
+        left: 27%;
+    }
+    #battery:not(.active) {
+        top: 44%;
+        left: 13%;
+    }
 }
 
 
