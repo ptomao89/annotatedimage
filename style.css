@@ -45,6 +45,7 @@ img {
     margin: 0 auto;
 }
 
+
 p {
     line-height: 1.5em;
 }
@@ -161,7 +162,7 @@ figcaption {
 */
 
 .annotate .dot.green {
-    background-color: rgba(0, 110, 65, 0.65);
+    background-color: rgba(110, 99, 0, 0.671);
 }
 
 .annotate .dot.purple {
@@ -185,24 +186,24 @@ figcaption {
 * Use IDs to position the dots. The IDs include a :not pseudo-selector so that the dot's active class can override these behaviors
 */
 
-#buffalo:not(.active) {
-    top: 20%;
-    right: 21%;
+#commute:not(.active) {
+    top: 40%;
+    right: 45%;
 }
 
-#minneapolis:not(.active) {
-    top: 20%;
-    left: 53%;
+#grade:not(.active) {
+    top: 24%;
+    left: 42%;
 }
 
-#albany:not(.active) {
-    top: 20%;
-    right: 13%;
+#buses:not(.active) {
+    top: 55%;
+    right: 47%;
 }
 
-#salisbury:not(.active) {
-    top: 32%;
-    right: 15%;
+#fare:not(.active) {
+    top: 60%;
+    right: 30%;
 }
 
 
@@ -244,7 +245,7 @@ figcaption {
 
 .collage {
     display: flex;
-    justify-content: space-between;
+    justify-content:space-evenly;
     flex-wrap: wrap;
 }
 
@@ -255,7 +256,7 @@ figcaption {
 * combined padding creates the desired 5px of negative space
 */
 
-.collage .img {
+.collage .img  {
     flex-basis: 50%;
     padding: 2.5px;
 }
@@ -277,6 +278,77 @@ figcaption {
 .collage .img:nth-child(odd) {
     padding-left: 0;
 }
+
+
+
+
+
+  /* styling for filter */
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 5px;
+  
+}
+
+img {
+    display: block;
+    width: 100%;
+    align-items: center;
+}
+
+select {
+    display: block;
+    width: 100%;
+}
+
+
+.filter {
+    padding: 10px;
+    margin-bottom: 15px;
+    
+         }
+    
+    .item {
+    
+        display: none;
+    }
+    
+    .item.active {
+    
+    display: block;
+    
+    }
+    
+    #transit {
+    
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    text-align: center;
+    
+    }
+    
+    #transit > div {
+        flex-basis: calc(50% - 10px);
+    }
+    
+    /* Tablet/Desktop overrides */
+    
+    @media(min-width: 681px) 
+    
+    {
+        #transit > div {
+    
+            flex-basis: calc(33% - 10px);
+        }
+        
+    }
+    
+    
+
+
 
 
 /*********************************************************************
